@@ -16,7 +16,7 @@ def createNotionTask(token, collectionURL, content):
     row.title = content
 
 
-@app.route('/create_todo', methods=['GET'])
+@app.route('/create_todo1', methods=['GET'])
 def create_todo():
 
     todo = request.args.get('todo')
