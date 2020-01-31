@@ -15,11 +15,20 @@ def createNotionTask(token, collectionURL, content):
     row = cv.collection.add_row()
     row.title = content
 
+# ?fields=status,date,bullshit&values=
 
-@app.route('/create_todo1', methods=['GET'])
+@app.route('/generic', methods=['POST'])
+def genericRequest():
+    content = request.json
+    print(content.keys())
+    print(content.values())
+    return { "success": True }
+
+@app.route('/create_todo', methods=['GET'])
 def create_todo():
 
     todo = request.args.get('todo')
+    todo = request.args.get('todo1')
     token_v2 = os.environ.get("TOKEN")
     url = os.environ.get("URL")
     createNotionTask(token_v2, url, todo)
