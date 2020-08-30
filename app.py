@@ -30,6 +30,7 @@ def setMultipleValues(row, key, value):
         try:
             row[key] = values
         except:
+            print(row,key,values,value)
             pass
 
 # to create new task in sprint
