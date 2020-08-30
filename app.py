@@ -28,7 +28,7 @@ def setMultipleValues(row, key, value):
     for val in value:
         values.append(val)
         try:
-            setattr(row, key, json[key])
+            setattr(row, key, values)
         except:
             pass
 
@@ -86,7 +86,7 @@ def editSprintTask():
                             values = []
                             for val in json[key]:
                                 values.append(val)
-                                setattr(row, key, json[key])
+                                setattr(row, key, values)
                     else:
                         setattr(row, key, json[key])
                 except Exception as e:
