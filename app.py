@@ -31,7 +31,7 @@ def genericRequest():
 
 @app.route('/createSprintTask', methods=['POST'])
 def createSprintTask():
-    json = request.jsons
+    json = request.json
     token_v2 = os.environ.get("TOKEN")
     client = NotionClient(token_v2)
 
