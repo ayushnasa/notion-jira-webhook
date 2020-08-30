@@ -84,9 +84,12 @@ def editSprintTask():
             if key not in ['url','jiraId']:
                 try:
                     if type(json[key]) is list:
-                        setMultipleValues(row,key,json[key])
+                            values = []
+                            for val in json[key]:
+                                values.append(val)
+                                row[key] = values
                     else:
-                        row[key] = 'Pending Deployment'
+                        row[key] = json[key]
                 except Exception as e:
                     print('Exception!!!!')
                     print(e)
