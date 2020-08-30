@@ -44,7 +44,7 @@ def createSprintTask():
     currentRows = cv.collection.get_rows(search=jira_link)
     for currentRow in currentRows:
         if getattr(currentRow,'jira_link') == jira_link:
-            return f'Ticket {jira_link} already present on Notion. Skipped'
+            return f'{message: Ticket {jira_link} already present on Notion. Skipped, status:skipped}'
 
     row = cv.collection.add_row()
 
@@ -58,7 +58,7 @@ def createSprintTask():
                     setattr(row, key, json[key])
             except Exception as e:
                 print(e)
-    return f'Added {title} to Notion'
+    return f'{message : Added {title} to Notion, status:skipped}'
 
 
 
