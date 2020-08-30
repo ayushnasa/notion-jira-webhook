@@ -89,7 +89,7 @@ def editSprintTask():
                     #             values.append(val)
                     #             row[key] = values
                     # else:
-                    row.status=json[key]
+                    setattr(row, key, json[key])
                 except Exception as e:
                     print('Exception!!!!')
                     print(e)
