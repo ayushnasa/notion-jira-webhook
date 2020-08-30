@@ -58,7 +58,7 @@ def createSprintTask():
             except Exception as e:
                 print(e)
     responseMessage = "Added " + title + " to Notion"
-    return json.dumps({'message': responseMessage, 'success': True, 'type': "created", 'row': row.id})
+    return {'message': responseMessage, 'success': True, 'type': "created", 'row': row.id}
 
 
 
