@@ -95,7 +95,7 @@ def editSprintTask():
         return {'message': responseMessage, 'success': True, 'type': "edited", 'row': rowId}
     except Exception as e:
         rowId = None
-        responseMessage = "Edited " + ticket + " in Notion"
+        responseMessage = "Count not find " + ticket + " in Notion"
         return {'message': responseMessage, 'success': True, 'type': "not_found", 'row': rowId}
     
 
