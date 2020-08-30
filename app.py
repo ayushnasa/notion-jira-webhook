@@ -27,6 +27,7 @@ def genericRequest():
 
 
 
+# to create new task in sprint
 
 @app.route('/createSprintTask', methods=['POST'])
 def createSprintTask():
@@ -35,7 +36,7 @@ def createSprintTask():
     client = NotionClient(token_v2)
 
     url = request.args.get('url')
-    cv = client.get_collection_view(collectionURL)
+    cv = client.get_collection_view(url)
 
     title = request.args.get('title')
 
@@ -62,7 +63,7 @@ def editSprintTask():
     client = NotionClient(token_v2)
 
     url = request.args.get('url')
-    cv = client.get_collection_view(collectionURL)
+    cv = client.get_collection_view(url)
 
     jiraId = request.args.get('jiraId')
 
