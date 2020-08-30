@@ -36,6 +36,8 @@ def createSprintTask():
     client = NotionClient(token_v2)
 
     url = request.args.get('url')
+    print(json)
+
     cv = client.get_collection_view(url)
 
     title = request.args.get('title')
