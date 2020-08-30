@@ -74,23 +74,12 @@ def editSprintTask():
     ticket = json['ticket']
     jira_link = 'https://quikrjira.quikrcorp.com/browse/' + ticket
 
-
-    jira_link = json['jira_link']
-
-    filter_params = [
-            {
-                "property": "jira_link",
-                "comparator": "string_is",
-                "value": {"type": "exact", "value": jira_link},
-            }
-        ]
-
-    rows = cv.collection.get_rows(filter=filter_params)
+    rows = cv.collection.get_rows(search=jira_link)
     print(rows)
     for row in rows:
         if getattr(row,'jira_link') == jira_link:
             for key in json.keys():
-                if key not in ['url','ticket']:
+                if key not in ['url','ticket','jira_link']:
                     try:
                         if type(json[key]) is list:
                             setMultipleValues(row,key,json[key])
