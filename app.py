@@ -28,9 +28,8 @@ def setMultipleValues(row, key, value):
     for val in value:
         values.append(val)
         try:
-            row.set(key,values)
+            setattr(row, key, json[key])
         except:
-            print(row,key,values,value)
             pass
 
 # to create new task in sprint
@@ -83,13 +82,13 @@ def editSprintTask():
         for key in json.keys():
             if key not in ['url','jiraId']:
                 try:
-                    # if type(json[key]) is list:
-                    #         values = []
-                    #         for val in json[key]:
-                    #             values.append(val)
-                    #             row[key] = values
-                    # else:
-                    setattr(row, key, json[key])
+                    if type(json[key]) is list:
+                            values = []
+                            for val in json[key]:
+                                values.append(val)
+                                setattr(row, key, json[key])
+                    else:
+                        setattr(row, key, json[key])
                 except Exception as e:
                     print('Exception!!!!')
                     print(e)
