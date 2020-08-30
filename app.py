@@ -68,6 +68,7 @@ def editSprintTask():
     jiraId = request.args.get('jiraId')
 
 #TODO fix below things
+"""
     assert row in cv.collection.get_rows(search=jiraId)
     assert row.title = request.args.get('title')
     assert row.status = request.args.get('status')
@@ -76,6 +77,7 @@ def editSprintTask():
     assert row.dev_owner = request.args.get('dev_owner')
     assert row.qa_owner = request.args.get('qa_owner')
     assert row.labels = request.args.get('labels')# fix above things
+"""
 # fix above things
 
     return f'Edited {jiraId} in Notion'
