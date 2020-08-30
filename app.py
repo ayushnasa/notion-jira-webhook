@@ -71,15 +71,12 @@ def editSprintTask():
     cv = client.get_collection_view(url)
 
     ticket = json['ticket']
-    
-    rows = cv.collection.get_rows(search=ticket)
+    jira_link = 'https://quikrjira.quikrcorp.com/browse/' + ticket
+
+    rows = cv.collection.get_rows(search=jira_link)
     print(rows)
     for row in rows:
-        print('jira_link',getattr(row,'jira_link'),ticket)
-        print('status',getattr(row,'status'),ticket)
-        print('ticket',getattr(row,'ticket'),ticket)
-
-        if getattr(row,'ticket') == ticket:
+        if getattr(row,'jira_link') == jira_link:
             for key in json.keys():
                 if key not in ['url','ticket']:
                     try:
