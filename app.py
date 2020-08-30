@@ -58,7 +58,7 @@ def createSprintTask():
                 print(e)
     return f'{row}'
     responseMessage = "Added" + {title} + " to Notion"
-    return json.dumps({'message': responseMessage,'status': "skipped", 'row':})
+    return json.dumps({'message': responseMessage,'status': "skipped", 'row': row})
 
 
 
