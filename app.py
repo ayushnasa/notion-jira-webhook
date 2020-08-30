@@ -43,7 +43,7 @@ def createSprintTask():
     for currentRow in currentRows:
         if getattr(currentRow,'jira_link') == jira_link:
             responseMessage = "Ticket " + jira_link + " already present on Notion"
-            return json.dumps({'message': responseMessage, 'success': True, 'type': "skipped", 'row': currentRow.id})
+            return {'message': responseMessage, 'success': True, 'type': "skipped", 'row': currentRow.id}
 
     row = cv.collection.add_row()
 
@@ -90,7 +90,7 @@ def editSprintTask():
                     except Exception as e:
                         print(e)
     responseMessage = "Edited " + ticket + " in Notion"
-    return json.dumps({'message': responseMessage, 'success': True, 'type': "edited", 'row': row.id})
+    return {'message': responseMessage, 'success': True, 'type': "edited", 'row': row.id}
 
 
 
@@ -119,7 +119,7 @@ def genericCreateEntry():
             except Exception as e:
                 print(e)
     responseMessage = "Added " + title + " to Notion"
-    return json.dumps({'message': responseMessage, 'success': True, 'type': "created", 'row': row.id})
+    return {'message': responseMessage, 'success': True, 'type': "created", 'row': row.id}
 
 
 
@@ -150,7 +150,7 @@ def genericEditEntry():
                     except Exception as e:
                         print(e)
     responseMessage = "Edited " + row.title + " in Notion"
-    return json.dumps({'message': responseMessage, 'success': True, 'type': "edited", 'row': row.id})
+    return {'message': responseMessage, 'success': True, 'type': "edited", 'row': row.id}
 
 
 
