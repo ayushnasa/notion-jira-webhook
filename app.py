@@ -41,24 +41,20 @@ def createSprintTask():
     client = NotionClient(token_v2)
 
     url = json['url']
-    print(json)
-
     cv = client.get_collection_view(url)
 
     title = json['title']
-    print(title)
-
-
     row = cv.collection.add_row()
-    row.title = title
-    row.jira_link = json['jira_link']
-    row.status = json['status']
-    row.priority = json['priority']
-    row.assignee = json['assignee']
-    row.dev_owner = json['dev_owner']
-    row.qa_owner = json['qa_owner']
-    setMultipleValues(row,'labels',json['labels'])
 
+    for key in json.keys():
+        if key not in ['url']:
+            try:
+                if type(json[key]) is list:
+                    setMultipleValues(row,key,json[key])
+                else:
+                    setattr(row, key, json[key])
+            except Exception as e:
+                print(e)
     return f'Added {title} to Notion'
 
 
@@ -83,32 +79,12 @@ def editSprintTask():
             if key not in ['url','jiraId']:
                 try:
                     if type(json[key]) is list:
-                            values = []
-                            for val in json[key]:
-                                values.append(val)
-                                setattr(row, key, values)
+                        setMultipleValues(row,key,json[key])
                     else:
                         setattr(row, key, json[key])
                 except Exception as e:
-                    print('Exception!!!!')
                     print(e)
-                    pass
     return f'Edited {jiraId} in Notion'
-
-#TODO fix below things
-"""
-    assert row in cv.collection.get_rows(search=jiraId)
-    assert row.title = json['title']
-    assert row.status = json['status']
-    assert row.priority = json['priority']
-    assert row.assignee = json['assignee']
-    assert row.dev_owner = json['dev_owner']
-    assert row.qa_owner = json['qa_owner']
-    assert row.labels = json['labels')# fix above thing]
-
-    return f'Edited {jiraId} in Notion'
-"""
-# fix above things
 
 
 
