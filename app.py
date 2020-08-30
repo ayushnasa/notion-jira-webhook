@@ -42,8 +42,13 @@ def createSprintTask():
 
     url = json['url']
     cv = client.get_collection_view(url)
-
     title = json['title']
+    jira_link = json['jira_link']
+
+    currentRows = cv.collection.get_rows(search=jira_link)
+    for currentRow in currentRows:
+        if getattr(row,'jira_link') == jira_link:
+            return f'Ticket {jira_link} already present on Notion. Skipped'
 
     row = cv.collection.add_row()
 
