@@ -52,8 +52,10 @@ def createSprintTask():
     row.assignee = json['assignee']
     row.dev_owner = json['dev_owner']
     row.qa_owner = json['qa_owner']
-    row.labels = json['labels']
-
+    try:
+        row.labels = json['labels']
+    except Exception as e:
+        pass
     return f'Added {title} to Notion'
 
 
