@@ -66,6 +66,7 @@ def editSprintTask():
     cv = client.get_collection_view(url)
 
     jiraId = request.args.get('jiraId')
+    return f'Edited {jiraId} in Notion'
 
 #TODO fix below things
 """
@@ -78,10 +79,10 @@ def editSprintTask():
     assert row.qa_owner = request.args.get('qa_owner')
     assert row.labels = request.args.get('labels')# fix above things
 """
-# fix above things
 
     return f'Edited {jiraId} in Notion'
 
+# fix above things
 
 
 
