@@ -14,9 +14,6 @@ app = Flask(__name__)
 
 
 
-# ?fields=status,date,bullshit&values=
-
-
 def setMultipleValues(row, key, value):
     values = []
     for val in value:
@@ -59,7 +56,7 @@ def createSprintTask():
                     setattr(row, key, json[key])
             except Exception as e:
                 print(e)
-    responseJson = json.dump({'message': "Added {title} to Notion",'status': "skipped"})
+    responseJson = json.dumps({'message': "Added {title} to Notion",'status': "skipped"})
     return responseJson
 
 
