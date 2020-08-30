@@ -35,22 +35,22 @@ def createSprintTask():
     token_v2 = os.environ.get("TOKEN")
     client = NotionClient(token_v2)
 
-    url = request.args.get('url')
+    url = json['url']
     print(json)
 
     cv = client.get_collection_view(url)
 
-    title = request.args.get('title')
+    title = json.['title']
 
     row = cv.collection.add_row()
     row.title = title
-    row.jira_link = request.args.get('jira_link')
-    row.status = request.args.get('status')
-    row.priority = request.args.get('priority')
-    row.assignee = request.args.get('assignee')
-    row.dev_owner = request.args.get('dev_owner')
-    row.qa_owner = request.args.get('qa_owner')
-    row.labels = request.args.get('labels')
+    row.jira_link = json.['jira_link']
+    row.status = json.['status']
+    row.priority = json.['priority']
+    row.assignee = json.['assignee']
+    row.dev_owner = json.['dev_owner']
+    row.qa_owner = json.['qa_owner']
+    row.labels = json.['labels']
 
     return f'Added {title} to Notion'
 
@@ -64,22 +64,22 @@ def editSprintTask():
     token_v2 = os.environ.get("TOKEN")
     client = NotionClient(token_v2)
 
-    url = request.args.get('url')
+    url = json.['url']
     cv = client.get_collection_view(url)
 
-    jiraId = request.args.get('jiraId')
+    jiraId = json.['jiraId']
     return f'Edited {jiraId} in Notion'
 
 #TODO fix below things
 """
     assert row in cv.collection.get_rows(search=jiraId)
-    assert row.title = request.args.get('title')
-    assert row.status = request.args.get('status')
-    assert row.priority = request.args.get('priority')
-    assert row.assignee = request.args.get('assignee')
-    assert row.dev_owner = request.args.get('dev_owner')
-    assert row.qa_owner = request.args.get('qa_owner')
-    assert row.labels = request.args.get('labels')# fix above things
+    assert row.title = json.['title']
+    assert row.status = json.['status']
+    assert row.priority = json.['priority']
+    assert row.assignee = json.['assignee']
+    assert row.dev_owner = json.['dev_owner']
+    assert row.qa_owner = json.['qa_owner']
+    assert row.labels = json.['labels')# fix above thing]
 
     return f'Edited {jiraId} in Notion'
 """
