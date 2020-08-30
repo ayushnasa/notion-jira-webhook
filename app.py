@@ -89,12 +89,13 @@ def editSprintTask():
                             setattr(row, key, jsonRequest[key])
                     except Exception as e:
                         print(e)
-    if row.id:
+    try:
         rowId = row.id
-    else:
+    except Exception as e:
         rowId = None
+
     responseMessage = "Edited " + ticket + " in Notion"
-    return {'message': responseMessage, 'success': True, 'type': "edited", 'row': row.id}
+    return {'message': responseMessage, 'success': True, 'type': "edited", 'row': rowId}
 
 
 
