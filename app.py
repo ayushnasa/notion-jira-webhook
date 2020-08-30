@@ -86,7 +86,7 @@ def editSprintTask():
                     if type(json[key]) is list:
                         setMultipleValues(row,key,json[key])
                     else:
-                        row.status = 'Pending Deployment'
+                        row[key] = 'Pending Deployment'
                 except Exception as e:
                     print('Exception!!!!')
                     print(e)
