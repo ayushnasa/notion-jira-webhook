@@ -28,6 +28,7 @@ def setMultipleValues(row, key, value):
 
 @app.route('/createSprintTask', methods=['POST'])
 def createSprintTask():
+    success = true #to be used in response, if required
     jsonRequest = request.json
     token_v2 = os.environ.get("TOKEN")
     collectionUrl = os.environ.get("NOTION_SPRINT_COLLECTION_URL")
@@ -43,7 +44,7 @@ def createSprintTask():
     for currentRow in currentRows:
         if getattr(currentRow,'jira_link') == jira_link:
             responseMessage = "Ticket " + jira_link + " already present on Notion"
-            return json.dumps({'message': responseMessage, 'success': true, 'type': "skipped", 'row': currentRow.id})
+            return json.dumps({'message': responseMessage, 'success': success, 'type': "skipped", 'row': currentRow.id})
 
     row = cv.collection.add_row()
 
@@ -58,13 +59,14 @@ def createSprintTask():
             except Exception as e:
                 print(e)
     responseMessage = "Added " + title + " to Notion"
-    return json.dumps({'message': responseMessage, 'success': true, 'type': "created", 'row': row.id})
+    return json.dumps({'message': responseMessage, 'success': success, 'type': "created", 'row': row.id})
 
 
 
 
 @app.route('/editSprintTask', methods=['POST'])
 def editSprintTask():
+    success = true #to be used in response, if required
     jsonRequest = request.json
     token_v2 = os.environ.get("TOKEN")
     jira_host = os.environ.get("JIRA_HOST")
@@ -90,13 +92,14 @@ def editSprintTask():
                     except Exception as e:
                         print(e)
     responseMessage = "Edited " + ticket + " in Notion"
-    return json.dumps({'message': responseMessage, 'success': true, 'type': "edited", 'row': row.id})
+    return json.dumps({'message': responseMessage, 'success': success, 'type': "edited", 'row': row.id})
 
 
 
 
 @app.route('/genericCreateEntry', methods=['POST'])
 def genericCreateEntry():
+    success = true #to be used in response, if required
     jsonRequest = request.json
     token_v2 = os.environ.get("TOKEN")
     collectionUrl = jsonRequest['collectionUrl']
@@ -119,7 +122,7 @@ def genericCreateEntry():
             except Exception as e:
                 print(e)
     responseMessage = "Added " + title + " to Notion"
-    return json.dumps({'message': responseMessage, 'success': true, 'type': "created", 'row': row.id})
+    return json.dumps({'message': responseMessage, 'success': success, 'type': "created", 'row': row.id})
 
 
 
@@ -127,6 +130,7 @@ def genericCreateEntry():
 
 @app.route('/genericEditEntry', methods=['POST'])
 def genericEditEntry():
+    success = true #to be used in response, if required
     jsonRequest = request.json
     token_v2 = os.environ.get("TOKEN")
     collectionUrl = jsonRequest['collectionUrl']
@@ -150,7 +154,7 @@ def genericEditEntry():
                     except Exception as e:
                         print(e)
     responseMessage = "Edited " + row.title + " in Notion"
-    return json.dumps({'message': responseMessage, 'success': true, 'type': "edited", 'row': row.id})
+    return json.dumps({'message': responseMessage, 'success': success, 'type': "edited", 'row': row.id})
 
 
 
