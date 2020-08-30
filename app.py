@@ -28,7 +28,7 @@ def setMultipleValues(row, key, value):
     for val in value:
         values.append(val)
         try:
-            row[key] = values
+            row.set(key,values)
         except:
             print(row,key,values,value)
             pass
@@ -76,17 +76,18 @@ def editSprintTask():
     cv = client.get_collection_view(url)
 
     jiraId = json['jiraId']
-    assert row in cv.collection.get_rows(search=jiraId)
-
-    for key in json.keys():
-        if key not in ['url','jiraId']:
-            try:
-                if type(json[key]) is list:
-                    setMultipleValues(row,key,json[key])
-                else:
-                    row.title = json[key]
-            except Exception as e:
-                pass
+    
+    row = cv.collection.get_rows(search=jiraId)
+    if row:
+        for key in json.keys():
+            if key not in ['url','jiraId']:
+                try:
+                    if type(json[key]) is list:
+                        setMultipleValues(row,key,json[key])
+                    else:
+                        row.title = json[key]
+                except Exception as e:
+                    pass
     return f'Edited {jiraId} in Notion'
 
 #TODO fix below things
