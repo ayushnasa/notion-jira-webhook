@@ -85,8 +85,10 @@ def editSprintTask():
                     if type(json[key]) is list:
                         setMultipleValues(row,key,json[key])
                     else:
-                        row.title = json[key]
+                        row.status = json[key]
                 except Exception as e:
+                    print('Exception!!!!')
+                    print(e)
                     pass
     return f'Edited {jiraId} in Notion'
 
