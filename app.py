@@ -44,6 +44,7 @@ def createSprintTask():
     cv = client.get_collection_view(url)
 
     title = json['title']
+
     row = cv.collection.add_row()
 
     for key in json.keys():
@@ -73,7 +74,18 @@ def editSprintTask():
     ticket = json['ticket']
     jira_link = 'https://quikrjira.quikrcorp.com/browse/' + ticket
 
-    rows = cv.collection.get_rows(search=jira_link)
+
+    jira_link = json['jira_link']
+
+    filter_params = [
+            {
+                "property": "jira_link",
+                "comparator": "string_is",
+                "value": {type: "exact", value: jira_link},
+            }
+        ]
+
+    rows = cv.collection.get_rows(filter=filter_params)
     print(rows)
     for row in rows:
         if getattr(row,'jira_link') == jira_link:
