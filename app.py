@@ -23,9 +23,14 @@ def genericRequest():
     return { "success": True }
 
 
-
-
-
+def setMultipleValues(row, key, value):
+    values = []
+    for val in value:
+        values.append(val)
+        try:
+            row[key] = values
+        except:
+            pass
 
 # to create new task in sprint
 
@@ -52,15 +57,8 @@ def createSprintTask():
     row.assignee = json['assignee']
     row.dev_owner = json['dev_owner']
     row.qa_owner = json['qa_owner']
+    setMultipleValues(row,'labels',json['labels'])
 
-    labelToPush = []
-
-    for label in json['labels']:
-        try:
-            labelToPush.append(label)
-            row.labels = labelToPush
-        except Exception as e:
-            pass
     return f'Added {title} to Notion'
 
 
@@ -77,6 +75,17 @@ def editSprintTask():
     cv = client.get_collection_view(url)
 
     jiraId = json['jiraId']
+    assert row in cv.collection.get_rows(search=jiraId)
+
+    for key in json.keys():
+        if key not in ['url','jiraId']:
+            try:
+                if type(json[key]) is list:
+                    setMultipleValues(row,key,json[key])
+                else:
+                    row[key] = json[key]
+            except Exception as e:
+                pass
     return f'Edited {jiraId} in Notion'
 
 #TODO fix below things
