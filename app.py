@@ -91,11 +91,13 @@ def editSprintTask():
                         print(e)
     try:
         rowId = row.id
+        responseMessage = "Edited " + ticket + " in Notion"
+        return {'message': responseMessage, 'success': True, 'type': "edited", 'row': rowId}
     except Exception as e:
         rowId = None
-
-    responseMessage = "Edited " + ticket + " in Notion"
-    return {'message': responseMessage, 'success': True, 'type': "edited", 'row': rowId}
+        responseMessage = "Edited " + ticket + " in Notion"
+        return {'message': responseMessage, 'success': True, 'type': "not_found", 'row': rowId}
+    
 
 
 
