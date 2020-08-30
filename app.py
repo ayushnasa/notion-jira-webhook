@@ -28,7 +28,7 @@ def setMultipleValues(row, key, value):
 
 @app.route('/createSprintTask', methods=['POST'])
 def createSprintTask():
-    jsonRequest = request.jsonRequest
+    jsonRequest = request.json
     token_v2 = os.environ.get("TOKEN")
     collectionUrl = os.environ.get("NOTION_SPRINT_COLLECTION_URL")
 
@@ -64,7 +64,7 @@ def createSprintTask():
 
 @app.route('/editSprintTask', methods=['POST'])
 def editSprintTask():
-    jsonRequest = request.jsonRequest
+    jsonRequest = request.json
     token_v2 = os.environ.get("TOKEN")
     jira_host = os.environ.get("JIRA_HOST")
     collectionUrl = os.environ.get("NOTION_SPRINT_COLLECTION_URL")
@@ -95,7 +95,7 @@ def editSprintTask():
 
 @app.route('/genericCreateEntry', methods=['POST'])
 def genericCreateEntry():
-    jsonRequest = request.jsonRequest
+    jsonRequest = request.json
     token_v2 = os.environ.get("TOKEN")
     collectionUrl = jsonRequest['collectionUrl']
 
@@ -124,7 +124,7 @@ def genericCreateEntry():
 
 @app.route('/genericEditEntry', methods=['POST'])
 def genericEditEntry():
-    jsonRequest = request.jsonRequest
+    jsonRequest = request.json
     token_v2 = os.environ.get("TOKEN")
     collectionUrl = jsonRequest['collectionUrl']
     searchQuery = jsonRequest['searchQuery']
