@@ -1,7 +1,7 @@
 import os
 import argparse
 import sys
-import json
+import jsonRequest
 from datetime import datetime
 
 from flask import Flask
@@ -28,15 +28,15 @@ def setMultipleValues(row, key, value):
 
 @app.route('/createSprintTask', methods=['POST'])
 def createSprintTask():
-    json = request.json
+    jsonRequest = request.jsonRequest
     token_v2 = os.environ.get("TOKEN")
     collectionUrl = os.environ.get("NOTION_SPRINT_COLLECTION_URL")
 
     client = NotionClient(token_v2)
     cv = client.get_collection_view(collectionUrl)
 
-    title = json['title']
-    jira_link = json['jira_link']
+    title = jsonRequest['title']
+    jira_link = jsonRequest['jira_link']
 
 # Check if ticket is already present in Notion. Skip if present. Else continue
     currentRows = cv.collection.get_rows(search=jira_link)
@@ -47,13 +47,13 @@ def createSprintTask():
     row = cv.collection.add_row()
 
 # For every key in the createSprintTask request (except the ones added in list below), set value in the newly created row
-    for key in json.keys():
+    for key in jsonRequest.keys():
         if key not in ['collectionUrl']:
             try:
-                if type(json[key]) is list:
-                    setMultipleValues(row,key,json[key])
+                if type(jsonRequest[key]) is list:
+                    setMultipleValues(row,key,jsonRequest[key])
                 else:
-                    setattr(row, key, json[key])
+                    setattr(row, key, jsonRequest[key])
             except Exception as e:
                 print(e)
     responseJson = json.dumps({'message': "Added {title} to Notion",'status': "skipped"})
@@ -64,7 +64,7 @@ def createSprintTask():
 
 @app.route('/editSprintTask', methods=['POST'])
 def editSprintTask():
-    json = request.json
+    jsonRequest = request.jsonRequest
     token_v2 = os.environ.get("TOKEN")
     jira_host = os.environ.get("JIRA_HOST")
     collectionUrl = os.environ.get("NOTION_SPRINT_COLLECTION_URL")
@@ -72,20 +72,20 @@ def editSprintTask():
     client = NotionClient(token_v2)
     cv = client.get_collection_view(collectionUrl)
 
-    ticket = json['ticket']
+    ticket = jsonRequest['ticket']
     jira_link = jira_host + '/browse/' + ticket
 
 # Find rows in Notion with matching jira_link, verify exact match of jira_link, and then update every key in the editRequest (except the ones in the exlusion list below)
     rows = cv.collection.get_rows(search=jira_link)
     for row in rows:
         if getattr(row,'jira_link') == jira_link:
-            for key in json.keys():
+            for key in jsonRequest.keys():
                 if key not in ['ticket','jira_link']:
                     try:
-                        if type(json[key]) is list:
-                            setMultipleValues(row,key,json[key])
+                        if type(jsonRequest[key]) is list:
+                            setMultipleValues(row,key,jsonRequest[key])
                         else:
-                            setattr(row, key, json[key])
+                            setattr(row, key, jsonRequest[key])
                     except Exception as e:
                         print(e)
     return f'Edited {ticket} in Notion'
@@ -95,25 +95,25 @@ def editSprintTask():
 
 @app.route('/genericCreateEntry', methods=['POST'])
 def genericCreateEntry():
-    json = request.json
+    jsonRequest = request.jsonRequest
     token_v2 = os.environ.get("TOKEN")
-    collectionUrl = json['collectionUrl']
+    collectionUrl = jsonRequest['collectionUrl']
 
     client = NotionClient(token_v2)
     cv = client.get_collection_view(collectionUrl)
 
-    title = json['title']
+    title = jsonRequest['title']
 
     row = cv.collection.add_row()
 
 # For every key in the genericCreateEntry request (except the ones added in list below), set value in the newly created row
-    for key in json.keys():
+    for key in jsonRequest.keys():
         if key not in ['collectionUrl']:
             try:
-                if type(json[key]) is list:
-                    setMultipleValues(row,key,json[key])
+                if type(jsonRequest[key]) is list:
+                    setMultipleValues(row,key,jsonRequest[key])
                 else:
-                    setattr(row, key, json[key])
+                    setattr(row, key, jsonRequest[key])
             except Exception as e:
                 print(e)
     return f'Added {title} to Notion'
@@ -124,11 +124,11 @@ def genericCreateEntry():
 
 @app.route('/genericEditEntry', methods=['POST'])
 def genericEditEntry():
-    json = request.json
+    jsonRequest = request.jsonRequest
     token_v2 = os.environ.get("TOKEN")
-    collectionUrl = json['collectionUrl']
-    searchQuery = json['searchQuery']
-    findBy = json['findBy']
+    collectionUrl = jsonRequest['collectionUrl']
+    searchQuery = jsonRequest['searchQuery']
+    findBy = jsonRequest['findBy']
 
     client = NotionClient(token_v2)
     cv = client.get_collection_view(collectionUrl)
@@ -137,13 +137,13 @@ def genericEditEntry():
     rows = cv.collection.get_rows(search=searchQuery)
     for row in rows:
         if getattr(row,findBy) == searchQuery:
-            for key in json.keys():
+            for key in jsonRequest.keys():
                 if key not in ['collectionUrl','searchQuery']:
                     try:
-                        if type(json[key]) is list:
-                            setMultipleValues(row,key,json[key])
+                        if type(jsonRequest[key]) is list:
+                            setMultipleValues(row,key,jsonRequest[key])
                         else:
-                            setattr(row, key, json[key])
+                            setattr(row, key, jsonRequest[key])
                     except Exception as e:
                         print(e)
     return f'Edited entries in Notion'
