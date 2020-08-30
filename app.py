@@ -81,7 +81,7 @@ def editSprintTask():
             {
                 "property": "jira_link",
                 "comparator": "string_is",
-                "value": {type: "exact", value: jira_link},
+                "value": {"type": "exact", "value": jira_link},
             }
         ]
 
