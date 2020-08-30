@@ -75,9 +75,10 @@ def editSprintTask():
     rows = cv.collection.get_rows(search=ticket)
     print(rows)
     for row in rows:
-        print('labels',getattr(row,'labels'),ticket)
-        print('title',getattr(row,'title'),ticket)
+        print('jira_link',getattr(row,'jira_link'),ticket)
         print('status',getattr(row,'status'),ticket)
+        print('ticket',getattr(row,'ticket'),ticket)
+
         if getattr(row,'ticket') == ticket:
             for key in json.keys():
                 if key not in ['url','ticket']:
