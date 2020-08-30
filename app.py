@@ -56,8 +56,9 @@ def createSprintTask():
                     setattr(row, key, jsonRequest[key])
             except Exception as e:
                 print(e)
-    responseJson = json.dumps({'message': "Added" + {title} + " to Notion",'status': "skipped"})
-    return responseJson
+    return f'{row}'
+    responseMessage = "Added" + {title} + " to Notion"
+    return json.dumps({'message': responseMessage,'status': "skipped", 'row':})
 
 
 
