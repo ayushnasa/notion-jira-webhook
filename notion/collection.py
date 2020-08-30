@@ -314,7 +314,7 @@ class CollectionQuery(object):
             self._client.query_collection(
                 collection_id=self.collection.id,
                 collection_view_id=self.collection_view.id,
-                searchQuery=self.search,
+                search=self.search,
                 type=self.type,
                 aggregate=self.aggregate,
                 filter=self.filter,
