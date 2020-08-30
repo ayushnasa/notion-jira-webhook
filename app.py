@@ -42,7 +42,8 @@ def createSprintTask():
     currentRows = cv.collection.get_rows(search=jira_link)
     for currentRow in currentRows:
         if getattr(currentRow,'jira_link') == jira_link:
-            return f'{message: Ticket {jira_link} already present on Notion. Skipped, status:skipped}'
+            responseMessage = "Ticket " + jira_link + " already present on Notion"
+            return json.dumps({'message': responseMessage, 'success': true, 'type': "skipped", 'row': currentRow.id})
 
     row = cv.collection.add_row()
 
@@ -56,8 +57,8 @@ def createSprintTask():
                     setattr(row, key, jsonRequest[key])
             except Exception as e:
                 print(e)
-    responseMessage = "Added" + title + " to Notion"
-    return json.dumps({'message': responseMessage,'status': "skipped", 'row': row.id})
+    responseMessage = "Added " + title + " to Notion"
+    return json.dumps({'message': responseMessage, 'success': true, 'type': "created", 'row': row.id})
 
 
 
@@ -88,7 +89,8 @@ def editSprintTask():
                             setattr(row, key, jsonRequest[key])
                     except Exception as e:
                         print(e)
-    return f'Edited {ticket} in Notion'
+    responseMessage = "Edited " + ticket + " in Notion"
+    return json.dumps({'message': responseMessage, 'success': true, 'type': "edited", 'row': row.id})
 
 
 
@@ -116,7 +118,8 @@ def genericCreateEntry():
                     setattr(row, key, jsonRequest[key])
             except Exception as e:
                 print(e)
-    return f'Added {title} to Notion'
+    responseMessage = "Added " + title + " to Notion"
+    return json.dumps({'message': responseMessage, 'success': true, 'type': "created", 'row': row.id})
 
 
 
@@ -146,7 +149,8 @@ def genericEditEntry():
                             setattr(row, key, jsonRequest[key])
                     except Exception as e:
                         print(e)
-    return f'Edited entries in Notion'
+    responseMessage = "Edited " + row.title + " in Notion"
+    return json.dumps({'message': responseMessage, 'success': true, 'type': "edited", 'row': row.id})
 
 
 
