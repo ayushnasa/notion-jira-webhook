@@ -75,7 +75,9 @@ def editSprintTask():
     rows = cv.collection.get_rows(search=ticket)
     print(rows)
     for row in rows:
-        print(getattr(row,'name'),ticket)
+        print('labels',getattr(row,'labels'),ticket)
+        print('title',getattr(row,'title'),ticket)
+        print('status',getattr(row,'status'),ticket)
         if getattr(row,'ticket') == ticket:
             for key in json.keys():
                 if key not in ['url','ticket']:
