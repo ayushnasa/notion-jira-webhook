@@ -70,13 +70,14 @@ def editSprintTask():
     url = json['url']
     cv = client.get_collection_view(url)
 
-    jiraId = json['jiraId']
+    ticket = json['ticket']
     
-    rows = cv.collection.get_rows(search=jiraId)
+    rows = cv.collection.get_rows(search=ticket)
     print(rows)
     for row in rows:
+        if getattr(row,'ticket')
         for key in json.keys():
-            if key not in ['url','jiraId']:
+            if key not in ['url','ticket']:
                 try:
                     if type(json[key]) is list:
                         setMultipleValues(row,key,json[key])
@@ -84,7 +85,7 @@ def editSprintTask():
                         setattr(row, key, json[key])
                 except Exception as e:
                     print(e)
-    return f'Edited {jiraId} in Notion'
+    return f'Edited {ticket} in Notion'
 
 
 
