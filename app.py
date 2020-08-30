@@ -77,9 +77,8 @@ def editSprintTask():
 
     jiraId = json['jiraId']
     
-    row = cv.collection.get_rows(search=jiraId)
-    print(row)
-    if row:
+    rows = cv.collection.get_rows(search=jiraId)
+    for row in rows:
         for key in json.keys():
             if key not in ['url','jiraId']:
                 try:
