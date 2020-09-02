@@ -25,6 +25,10 @@ def setMultipleValues(row, key, value):
 
 
 
+@app.route('/isItUp', methods=['GET'])
+def isItUp():
+    return {'message': 'Still Live', 'success': True}
+
 
 @app.route('/createSprintTask', methods=['POST'])
 def createSprintTask():
