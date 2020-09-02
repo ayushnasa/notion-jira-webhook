@@ -153,8 +153,6 @@ class Collection(Record):
             for view in self.parent.views:
                 if isinstance(view, CalendarView):
                     continue
-                if view == 'NoneType':
-                    continue
                 view.set("page_sort", view.get("page_sort", []) + [row_id])
 
         return row
